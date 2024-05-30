@@ -1,0 +1,158 @@
+﻿@{
+    var farmer = ViewBag.Farmer as AgriConnectPOEPart2.Models.Farmer;
+    Layout = "~/Views/Shared/_AddFarmerView.cshtml"; // Specifies the layout for this view
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Farmer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css">
+    <style>
+        /* CSS styles */
+        .bodies {
+            background-color: #f9f9f9; /* Tinted white background */
+            font-family: 'Poppins', sans-serif;
+            color: #080710;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: #ffffff; /* Pure white background for the form container */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        .form-icon {
+            text-align: center;
+            background-color: rgba(24, 69, 173, 0.8);
+            border-radius: 50%;
+            font-size: 40px;
+            color: #ffffff;
+            width: 95px;
+            height: 95px;
+            margin: 0 auto 30px;
+            line-height: 95px;
+            border: 1px solid rgba(24, 69, 173, 0.8);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .form-container .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-container .item {
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 15px;
+        }
+
+        .form-container .btn-block {
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 15px;
+        }
+
+        .form-container .create-account {
+            background-color: rgba(24, 69, 173, 0.8);
+            border-color: rgba(24, 69, 173, 0.8);
+            color: #fff;
+            margin-top: 20px;
+            margin-bottom: 20px; 
+        }
+    </style>
+</head>
+
+<body class="bodies">
+    <div class="container">
+        <div class="form-container">
+            <div class="form-icon">
+                <span><i class="icon icon-basket-loaded"></i></span>
+            </div>
+                <div class="container">
+                    <div class="form-container">
+        <div class="background">
+            <div class="shape shape1"></div>
+            <div class="shape shape2"></div>
+        </div>
+
+
+        @if (farmer != null)
+        { 
+            <h2>Farmer Details</h2>
+            <div class="details"> 
+                <p><strong>FarmerID:</strong> @farmer.FarmerID</p>
+                <p><strong>FirstName:</strong> @farmer.FirstName</p>
+                <p><strong>LastName:</strong> @farmer.LastName</p>
+                <p><strong>Username:</strong> @farmer.Username</p>
+                <p><strong>Email:</strong> @farmer.Email</p>
+            </div>
+        }
+        else
+        {
+            <p class="not-found">Farmer details not found.</p>
+        }
+                    </div>
+                </div>
+        </div>
+    
+        <h3>Products by Farmer</h3>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Production Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.Products != null)
+                    {
+                        <!-- Loop through products and display -->
+                        foreach (var product in ViewBag.Products)
+                        {
+                            <tr>
+                                <td>@product.Name</td>
+                                <td>@product.Category</td>
+                                <td>@product.ProductionDate.ToString("yyyy-MM-dd")</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="not-found">No products found for this farmer.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+      
+    </div> 
+</body>
+</html>

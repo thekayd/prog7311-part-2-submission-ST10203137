@@ -1,0 +1,26 @@
+﻿@* Views/Shared/_EmployeeNavbar.cshtml *@
+<nav class="navbar navbar-expand-lg" style="background-color: #2563eb;">
+    <!-- form list -->
+    <a class="navbar-brand text-white">AgriConnect</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-action="FarmersList" asp-controller="Employee">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-action="AddFarmer" asp-controller="Employee">Create Farmer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-action="ProductsByFarmer" asp-controller="Employee">View Products by Farmer</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-action="Login" asp-controller="Account">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>

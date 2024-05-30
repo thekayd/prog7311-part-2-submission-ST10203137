@@ -1,0 +1,141 @@
+﻿@model AgriConnectPOEPart2.Models.FarmerViewModel
+@{
+    Layout = "~/Views/Shared/_AddFarmerView.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Farmer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css">
+    <style>
+        .bodies {
+            background-color: #f9f9f9; /* Tinted white background */
+            font-family: 'Poppins', sans-serif;
+            color: #080710;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: #ffffff; /* Pure white background for the form container */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        .form-icon {
+            text-align: center;
+            background-color: rgba(24, 69, 173, 0.8);
+            border-radius: 50%;
+            font-size: 40px;
+            color: #ffffff;
+            width: 95px;
+            height: 95px;
+            margin: 0 auto 30px;
+            line-height: 95px;
+            border: 1px solid rgba(24, 69, 173, 0.8);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .form-container .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-container .item {
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 15px;
+        }
+
+        .form-container .btn-block {
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 15px;
+        }
+
+        .form-container .create-account {
+            background-color: rgba(24, 69, 173, 0.8);
+            border-color: rgba(24, 69, 173, 0.8);
+            color: #fff;
+            margin-top: 20px;
+            margin-bottom: 20px; 
+        }
+    </style>
+</head>
+<body class="bodies">
+    <div class="container">
+        <div class="form-container">
+            <div class="form-icon">
+                <span><i class="icon icon-user"></i></span>
+            </div>
+            <h2>Add Farmer</h2>
+            <form asp-action="AddFarmer" method="post">
+                <div class="form-group">                   
+                    <input asp-for="FirstName" class="form-control item" placeholder="FirstName" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">                  
+                    <input asp-for="LastName" class="form-control item" placeholder="LastName" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Username" class="form-control item" placeholder="Username" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input asp-for="Password" id="passwordInput" type="password" class="form-control item" placeholder="Password" />
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-outline-secondary" onclick="generatePassword()">Generate</button>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Email" class="form-control item" placeholder="Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-block create-account">Add Farmer</button>
+            </form>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script>
+            // JavaScript function to generate a password
+            function generatePassword() {
+                var length = 8;
+                var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                var password = "";
+                for (var i = 0; i < length; i++) {
+                    password += charset.charAt(Math.floor(Math.random() * charset.length));
+                }
+                document.getElementById("passwordInput").value = password;
+            }
+        </script>
+    }
+</body>
+</html>

@@ -1,0 +1,119 @@
+﻿@model AgriConnectPOEPart2.Models.ProductViewModel
+@{
+    Layout = "~/Views/Shared/_AddProductView.cshtml"; // Specifies the layout for this view
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Farmer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css">
+    <style>
+        /* CSS styles */
+        .bodies {
+            background-color: #f9f9f9; 
+            font-family: 'Poppins', sans-serif;
+            color: #080710;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: #ffffff; 
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        .form-icon {
+            text-align: center;
+            background-color: rgba(24, 69, 173, 0.8);
+            border-radius: 50%;
+            font-size: 40px;
+            color: #ffffff;
+            width: 95px;
+            height: 95px;
+            margin: 0 auto 30px;
+            line-height: 95px;
+            border: 1px solid rgba(24, 69, 173, 0.8);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .form-container .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-container .item {
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 15px;
+        }
+
+        .form-container .btn-block {
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 15px;
+        }
+
+        .form-container .create-account {
+            background-color: rgba(24, 69, 173, 0.8);
+            border-color: rgba(24, 69, 173, 0.8);
+            color: #fff;
+            margin-top: 20px;
+            margin-bottom: 20px; 
+        }
+    </style>
+</head>
+
+<body class="bodies">
+    <div class="container">
+        <div class="form-container">
+            <div class="form-icon">
+                <span><i class="icon icon-basket-loaded"></i></span>
+            </div>
+<h2>Add Product</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Category"></label>
+        <input asp-for="Category" class="form-control" />
+        <span asp-validation-for="Category" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProductionDate"></label>
+        <input asp-for="ProductionDate" type="date" class="form-control" />
+        <span asp-validation-for="ProductionDate" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Product</button>
+</form>
+        </div>
+    </div>
+</body>
+</html>

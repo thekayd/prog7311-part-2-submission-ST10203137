@@ -1,0 +1,104 @@
+﻿@model IEnumerable<AgriConnectPOEPart2.Models.Farmer>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Farmers List</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css">
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            color: #080710;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+            .table th, .table td {
+                border: 1px solid rgba(8, 7, 16, 0.2);
+                padding: 12px 15px;
+                text-align: left;
+            }
+
+            .table th {
+                background-color: rgba(24, 69, 173, 0.8);
+                color: #fff;
+                text-align: center;
+            }
+
+            .table tbody tr:nth-child(even) {
+                background-color: rgba(8, 7, 16, 0.05);
+            }
+
+            .table tbody tr:nth-child(odd) {
+                background-color: rgba(8, 7, 16, 0.02);
+            }
+
+        .btn-info {
+            background-color: rgba(24, 69, 173, 0.8);
+            border-color: rgba(24, 69, 173, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <partial name="_EmployeeNavbar" />
+    <div class="container">
+        <h2>Farmers List</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var farmer in Model)
+                {
+                    <!-- Loop through products and display -->
+                    <tr>
+                        <td>@farmer.FirstName</td>
+                        <td>@farmer.LastName</td>
+                        <td>@farmer.Username</td>
+                        <td>@farmer.Email</td>
+                        <td>
+                            <a asp-action="FarmerDetails" asp-route-id="@farmer.FarmerID" class="btn btn-info">View Products</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="~/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+﻿@model IEnumerable<AgriConnectPOEPart2.Models.Product>
+
+@{
+    Layout = "~/Views/Shared/_AddFarmerView.cshtml"; // Specifies the layout for this view
+    ViewBag.Title = "Products By Farmer"; // Sets the title for the page
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Products By Farmer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css">
+    <style>
+        .bodies {
+            background-color: #f9f9f9; /* Tinted white background */
+            font-family: 'Poppins', sans-serif;
+            color: #080710;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: #ffffff; 
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        .form-icon {
+            text-align: center;
+            background-color: rgba(24, 69, 173, 0.8);
+            border-radius: 50%;
+            font-size: 40px;
+            color: #ffffff;
+            width: 95px;
+            height: 95px;
+            margin: 0 auto 30px;
+            line-height: 95px;
+            border: 1px solid rgba(24, 69, 173, 0.8);
+        }
+            .form-container h2 {
+                text-align: center;
+                margin-bottom: 20px;
+                font-size: 30px;
+                font-weight: 700;
+            }
+
+            .form-container .form-group {
+                margin-bottom: 20px;
+            }
+
+            .form-container .item {
+                border-radius: 20px;
+                padding: 10px 20px;
+                font-size: 15px;
+            }
+
+            .form-container .btn-block {
+                border-radius: 20px;
+                padding: 10px 20px;
+                font-size: 15px;
+            }
+
+            .form-container .create-account {
+                background-color: rgba(24, 69, 173, 0.8);
+                border-color: rgba(24, 69, 173, 0.8);
+                color: #fff;
+                margin-top: 20px;
+                margin-bottom: 20px; 
+            }
+
+
+        /* Table styling */
+        .table-container {
+            margin-top: 20px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+            .table th, .table td {
+                border: 1px solid rgba(8, 7, 16, 0.2);
+                padding: 12px 15px;
+                text-align: left;
+            }
+
+            .table th {
+                background-color: rgba(24, 69, 173, 0.8);
+                color: #fff;
+                text-align: center;
+            }
+
+            .table tbody tr:nth-child(even) {
+                background-color: rgba(8, 7, 16, 0.05);
+            }
+
+            .table tbody tr:nth-child(odd) {
+                background-color: rgba(8, 7, 16, 0.02);
+            }
+
+        .not-found {
+            text-align: center;
+            color: rgba(8, 7, 16, 0.7);
+        }
+    </style>
+</head>
+<body class="bodies">
+    
+    <div class="container">
+        <div class="form-container">
+            <div class="form-icon">
+                <span><i class="icon icon-basket-loaded"></i></span>
+            </div>
+            <h2>Products By Farmer</h2>
+            <form id="productsByFarmerForm" method="post">
+                <div class="form-group">
+                    <label for="farmerId" class="item">Select Farmer:</label>
+                    <div class="dropdown">
+                        <input type="text" id="farmerSearch" class="form-control item" placeholder="Search Farmers..." onkeyup="filterFarmers()">
+                        <select id="farmerId" name="farmerId" class="form-control item" >
+                            <option value="-1">All Farmers</option>
+                            @foreach (var farmer in ViewBag.Farmers)
+                            {
+                                <!-- Loop through farmer -->
+                                <option value="@farmer.FarmerID">@farmer.Username</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="startDate" class="item">Start Date:</label>
+                    <input type="date" id="startDate" name="startDate" class="form-control item">
+                </div>
+                <div class="form-group">
+                    <label for="endDate" class="item">End Date:</label>
+                    <input type="date" id="endDate" name="endDate" class="form-control item">
+                </div>
+                <div class="form-group">
+                    <label for="productType" class="item">Product Type:</label>
+                    <input type="text" id="productType" name="productCategory" class="form-control item" placeholder="Product Type">
+                </div>
+                <button type="button" class="btn btn-block create-account" onclick="submitForm()">Search</button>
+            </form>
+        </div>
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-container">
+                <h3>Products for Farmer ID: @(ViewBag.SelectedFarmerId == -1 ? "All Farmers" : ViewBag.SelectedFarmerId)</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Production Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model)
+                        {
+                            <tr>
+                                <td>@product.Name</td>
+                                <td>@product.Category</td>
+                                <td>@product.ProductionDate.ToString("yyyy-MM-dd")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else if (ViewBag.SelectedFarmerId != null)
+        {
+            <p class="not-found">No products found for the selected farmer.</p>
+        }
+    </div>
+    <script>
+        //JavaScript for filtering and submitting the form
+        function filterFarmers() {
+            var input, filter, select, options, i;
+            input = document.getElementById("farmerSearch");
+            filter = input.value.toUpperCase();
+            select = document.getElementById("farmerId");
+            options = select.getElementsByTagName("option");
+            for (i = 1; i < options.length; i++) {  // Start from 1 to skip "All Farmers"
+                var option = options[i];
+                var txtValue = option.textContent || option.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    option.style.display = "";
+                } else {
+                    option.style.display = "none";
+                }
+            }
+        }
+
+        function submitForm() {
+            var farmerId = document.getElementById("farmerId").value;
+            var startDate = document.getElementById("startDate").value;
+            var endDate = document.getElementById("endDate").value;
+            var productType = document.getElementById("productType").value;
+
+            var url = "/Employee/ProductsByFarmer?farmerId=" + farmerId;
+            if ((startDate && !endDate) || (!startDate && endDate)) {
+                alert("Please select both start and end dates or leave them both empty.");
+                return;
+            }
+            if (startDate !== "") {
+                url += "&startDate=" + startDate;
+            }
+            if (endDate !== "") {
+                url += "&endDate=" + endDate;
+            }
+            if (productType !== "") {
+                url += "&productType=" + productType;
+            }
+
+            document.getElementById("productsByFarmerForm").action = url;
+            document.getElementById("productsByFarmerForm").submit();
+        }
+    </script>
+</body>
+</html>
